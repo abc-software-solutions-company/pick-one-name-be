@@ -1,0 +1,5 @@
+export enum POST_STATUS {
+  PUBLISHED = 'PUBLISHED',
+  DRAFT = 'DRAFT',
+  DELETED = 'DELETED'
+}

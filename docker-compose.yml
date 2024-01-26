@@ -1,0 +1,95 @@
+version: '3.9'
+
+services:
+  app:
+    container_name: nest-template
+    image: nest-app
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # APP
+        NEST_HOST: ${NEST_HOST}
+        NEST_PORT: ${NEST_PORT}
+        # HTTP
+        REQUEST_TIMEOUT: ${REQUEST_TIMEOUT}
+        # CORS
+        # ...
+        # RATE LIMIT
+        THROTTLE_TTL: ${THROTTLE_TTL}
+        THROTTLE_LIMIT: ${THROTTLE_LIMIT}
+        # CACHE
+        CACHE_TIME_TO_LIVE: ${CACHE_TIME_TO_LIVE}
+        # DATABASE
+        DB_HOST: ${DB_HOST}
+        DB_PORT: ${DB_PORT}
+        DB_NAME: ${DB_NAME}
+        DB_USERNAME: ${DB_USERNAME}
+        DB_PASSWORD: ${DB_PASSWORD}
+        DB_SCHEMA: ${DB_SCHEMA}
+        DB_LOGS: ${DB_LOGS}
+        # DEFAULT USER
+        USER_EMAIL: ${USER_EMAIL}
+        USER_PASSWORD: ${USER_PASSWORD}
+        # REDIS
+        REDIS_HOST: ${REDIS_HOST}
+        REDIS_PORT: ${REDIS_PORT}
+        # AUTH
+        JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+        JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+        JWT_REFRESH_SECRET_KEY: ${JWT_REFRESH_SECRET_KEY}
+        JWT_REFRESH_EXPIRES_IN: ${JWT_REFRESH_EXPIRES_IN}
+        # DOCUMENT
+        DOCUMENTATION_ENABLED: ${DOCUMENTATION_ENABLED}
+    env_file:
+      - .env
+    ports:
+      - 3500:3500
+    depends_on:
+      - db
+      - redis
+    command: ['./start.sh']
+
+  db:
+    container_name: nest-template-db
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    env_file:
+      - .env
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+  dbtest:
+    container_name: nest-template-db-test
+    image: postgres
+    restart: always
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    env_file:
+      - .env.test
+    volumes:
+      - postgrestest:/var/lib/postgresql/data
+
+  redis:
+    container_name: nest-template-redis
+    image: redis
+    restart: always
+    ports:
+      - 6379:6379
+    env_file:
+      - .env
+
+volumes:
+  postgres:
+  postgrestest:
