@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 
 import { checkValidPassword } from '@/common/utils/password.util';
 
-import { USER_STATUS } from './constants/users.constant';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -42,20 +41,14 @@ export class UsersService {
     return user;
   }
 
-  async findActiveUser(id: string) {
-    const user = await this.userRepository.findOneBy({ id, status: USER_STATUS.ACTIVE });
-
-    return user;
-  }
-
   async findByEmail(email: string) {
     const user = await this.userRepository.findOneBy({ email });
 
     return user;
   }
 
-  async findByOAuthAccount(provider: AUTH_PROVIDER, providerAccountId: string) {
-    const user = await this.userRepository.findOneBy({ provider, providerAccountId });
+  async findByOAuthAccount(provider: AUTH_PROVIDER) {
+    const user = await this.userRepository.findOneBy({ provider });
 
     return user;
   }

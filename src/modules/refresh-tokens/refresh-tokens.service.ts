@@ -45,8 +45,6 @@ export class RefreshTokensService {
     const currentRefreshToken = await this.findByActiveToken(token, userAgent);
 
     currentRefreshToken.replacedByToken = refreshToken;
-    currentRefreshToken.revokedByIp = ipAddress;
-    currentRefreshToken.revokedAt = new Date();
 
     await this.refreshTokenRepository.save(currentRefreshToken);
 
@@ -62,9 +60,6 @@ export class RefreshTokensService {
       user: {
         id: user.id,
         email: user.email,
-        role: user.role,
-        name: user.name,
-        avatar: user.avatar,
         accessToken,
         refreshToken
       }
@@ -74,8 +69,6 @@ export class RefreshTokensService {
   async revoke(token: string, ipAddress: string, userAgent: string) {
     const refreshToken = await this.findByActiveToken(token, userAgent);
 
-    refreshToken.revokedByIp = ipAddress;
-    refreshToken.revokedAt = new Date();
     await this.refreshTokenRepository.save(refreshToken);
 
     return { status: 'success' };
