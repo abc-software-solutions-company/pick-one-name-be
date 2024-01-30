@@ -10,5 +10,5 @@ export class CreateRandomDto {
 
   @ApiPropertyOptional({ example: '' })
   @IsOptional()
-  is_active: boolean;
+  isActive: boolean;
 }

@@ -42,7 +42,7 @@ export class RandomsRepo {
   }
 
   async softDelete(id: string): Promise<boolean> {
-    const result = await this.randomType.update(id, { is_active: false });
+    const result = await this.randomType.update(id, { isActive: false });
 
     return result && result.affected > 0 ? true : false;
   }

@@ -26,8 +26,8 @@ export class User extends AbstractEntity {
   @Column({ nullable: true })
   premium_date: Date;
 
-  @Column({ type: 'bool', default: true })
-  is_active: boolean;
+  @Column({ type: 'bool', default: true, name: 'is_active' })
+  isActive: boolean;
 
   @OneToMany(() => Event, event => event.author)
   events: Event[];
