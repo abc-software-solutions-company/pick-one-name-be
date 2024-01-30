@@ -2,26 +2,29 @@ import { Injectable } from '@nestjs/common';
 
 import { CreateRandomDto } from './dto/create-random.dto';
 import { UpdateRandomDto } from './dto/update-random.dto';
+import { RandomsRepo } from './randoms.repository';
 
 @Injectable()
 export class RandomsService {
-  create(createRandomDto: CreateRandomDto) {
-    return 'This action adds a new random';
+  constructor(private readonly randomRepo: RandomsRepo) {}
+
+  async findAll() {
+    return await this.randomRepo.findAll();
   }
 
-  findAll() {
-    return `This action returns all randoms`;
+  async findOne(id: string) {
+    return await this.randomRepo.findOne(id);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} random`;
+  async create(randomType: CreateRandomDto) {
+    return await this.randomRepo.create(randomType);
   }
 
-  update(id: number, updateRandomDto: UpdateRandomDto) {
-    return `This action updates a #${id} random`;
+  async update(id: string, updateRandomDto: UpdateRandomDto) {
+    return await this.randomRepo.update(id, updateRandomDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} random`;
+  async softDelete(id: string) {
+    return await this.randomRepo.softDelete(id);
   }
 }
