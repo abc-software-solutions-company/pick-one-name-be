@@ -2,7 +2,6 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 
 import { AbstractEntity } from '@/common/entities';
 
-import { RANDOM_TYPE } from '@/modules/randoms/constants/random.constant';
 import { Random } from '@/modules/randoms/entities/random.entity';
 import { User } from '@/modules/users/entities/user.entity';
 
@@ -13,8 +12,7 @@ export class Event extends AbstractEntity {
 
   @OneToOne(() => Random)
   @JoinColumn()
-  @Column({ type: 'enum', enum: RANDOM_TYPE })
-  random_type: RANDOM_TYPE;
+  random: Random;
 
   @ManyToOne(() => User, user => user.events)
   author: User;
