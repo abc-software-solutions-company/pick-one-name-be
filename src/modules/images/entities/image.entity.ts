@@ -9,8 +9,8 @@ export class Image extends AbstractEntity {
   @Column({ nullable: true, type: 'varchar', length: 255 })
   src: string;
 
-  @Column({ type: 'bool', default: true })
-  is_active: boolean;
+  @Column({ type: 'bool', default: true, name: 'is_active' })
+  isActive: boolean;
 
   @ManyToOne(() => User, user => user.images)
   author: User;

@@ -9,9 +9,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { BaseModule } from '../base/base.module';
+import { RandomsModule } from '../randoms/randoms.module';
 
 @Module({
-  imports: [BaseModule, UsersModule, AuthModule, RefreshTokensModule, SocketModule],
+  imports: [BaseModule, UsersModule, AuthModule, RefreshTokensModule, SocketModule, RandomsModule],
   controllers: [AppController],
   providers: [AppService]
 })

@@ -9,6 +9,6 @@ export class RandomType extends AbstractEntity {
   @Column({ type: 'enum', enum: RANDOM_TYPE, default: RANDOM_TYPE.NUMBER })
   type: RANDOM_TYPE;
 
-  @Column({ type: 'bool', default: true })
-  is_active: boolean;
+  @Column({ type: 'bool', default: true, name: 'is_active' })
+  isActive: boolean;
 }
