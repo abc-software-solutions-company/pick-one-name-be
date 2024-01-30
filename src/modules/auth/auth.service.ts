@@ -26,9 +26,9 @@ export class AuthService {
     const user = await this.usersService.findByEmailAndPassword(email, password);
 
     if (user) {
-      if (user.status !== USER_STATUS.ACTIVE) {
-        throw new UnauthorizedException('User is inactive');
-      }
+      // if (user.status !== USER_STATUS.ACTIVE) {
+      //   throw new UnauthorizedException('User is inactive');
+      // }
     } else {
       throw new UnauthorizedException('User not found');
     }
@@ -49,9 +49,6 @@ export class AuthService {
       user: {
         id: user.id,
         email: user.email,
-        role: user.role,
-        name: user.name,
-        avatar: user.avatar,
         accessToken,
         refreshToken
       }
@@ -69,15 +66,13 @@ export class AuthService {
 
     if (user) {
       // Check if user is active
-      if (user.status !== USER_STATUS.ACTIVE) {
-        throw new UnauthorizedException('User is inactive');
-      }
-
+      // if (user.status !== USER_STATUS.ACTIVE) {
+      //   throw new UnauthorizedException('User is inactive');
+      // }
       // Check if user is existing with another provider
       // if (user.provider !== AUTH_PROVIDER.GOOGLE) {
       //   throw new ConflictException(`User is existing with ${user.provider} provider.`);
       // }
-
       // Find user using Google OAuth account
       // user = await this.usersService.findByOAuthAccount(AUTH_PROVIDER.GOOGLE, googleProfile.sub);
     } else {
@@ -98,9 +93,6 @@ export class AuthService {
       user: {
         id: user.id,
         email: user.email,
-        role: user.role,
-        name: user.name,
-        avatar: user.avatar,
         accessToken,
         refreshToken
       }
@@ -118,15 +110,13 @@ export class AuthService {
 
     if (user) {
       // Check if user is active
-      if (user.status !== USER_STATUS.ACTIVE) {
-        throw new UnauthorizedException('User is inactive');
-      }
-
+      // if (user.status !== USER_STATUS.ACTIVE) {
+      //   throw new UnauthorizedException('User is inactive');
+      // }
       // Check if user is existing with another provider
       // if (user.provider !== AUTH_PROVIDER.FACEBOOK) {
       //   throw new ConflictException(`User is existing with ${user.provider} provider.`);
       // }
-
       // Find user using Facebook OAuth account
       // user = await this.usersService.findByOAuthAccount(AUTH_PROVIDER.FACEBOOK, userInfo.id);
     } else {
@@ -146,9 +136,6 @@ export class AuthService {
       user: {
         id: user.id,
         email: user.email,
-        role: user.role,
-        name: user.name,
-        avatar: user.avatar,
         accessToken,
         refreshToken
       }
