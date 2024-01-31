@@ -11,14 +11,20 @@ export class ImagesRepo {
   constructor(
     @InjectRepository(Image)
     private readonly image: Repository<Image>
-  ) {}
+  ) { }
 
   async findAll(): Promise<Image[]> {
     return await this.image.find();
   }
 
   async findOne(id: string): Promise<Image> {
-    return await this.image.findOne({ where: { id } });
+    const image = await this.image.findOne({ where: { id } });
+
+    if (!image) {
+      throw new NotFoundException(`Image #${id} not found`);
+    }
+
+    return image;
   }
 
   async create(image: CreateImageDto): Promise<Image> {
@@ -43,6 +49,10 @@ export class ImagesRepo {
 
   async softDelete(id: string): Promise<boolean> {
     const result = await this.image.update(id, { isActive: false });
+
+    if (!result) {
+      throw new NotFoundException(`Image #${id} not found`);
+    }
 
     return result && result.affected > 0 ? true : false;
   }

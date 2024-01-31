@@ -9,12 +9,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { BaseModule } from '../base/base.module';
+import { EventsModule } from '../events/events.module';
 import { ImagesModule } from '../images/images.module';
 import { RandomsModule } from '../randoms/randoms.module';
 
 @Module({
-  imports: [BaseModule, UsersModule, AuthModule, RefreshTokensModule, SocketModule, RandomsModule, ImagesModule],
+  imports: [BaseModule, UsersModule, AuthModule, RefreshTokensModule, SocketModule, RandomsModule, EventsModule, ImagesModule],
   controllers: [AppController],
   providers: [AppService]
 })
-export class AppModule {}
+export class AppModule { }
