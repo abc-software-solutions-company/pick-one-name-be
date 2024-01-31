@@ -16,4 +16,7 @@ export class Event extends AbstractEntity {
 
   @ManyToOne(() => User, user => user.events)
   author: User;
+
+  @Column({ type: 'bool', default: true, name: 'is_active' })
+  isActive: boolean;
 }
