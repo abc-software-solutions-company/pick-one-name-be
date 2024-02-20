@@ -13,6 +13,7 @@ export class TokenService {
 
   async createAccessToken(user: User) {
     const { jwtSecretKey, jwtExpiresIn } = this.configService.get<IConfigs['auth']>('auth');
+
     const accessToken = createToken({ id: user.id, email: user.email }, jwtSecretKey, {
       expiresIn: jwtExpiresIn
     });

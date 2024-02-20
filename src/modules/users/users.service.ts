@@ -47,8 +47,8 @@ export class UsersService {
     return user;
   }
 
-  async findByOAuthAccount(provider: AUTH_PROVIDER) {
-    const user = await this.userRepository.findOneBy({ provider });
+  async findByOAuthAccount(provider: AUTH_PROVIDER, providerAccountId: string) {
+    const user = await this.userRepository.findOneBy({ provider, providerAccountId });
 
     return user;
   }
