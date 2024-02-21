@@ -1,7 +1,7 @@
 name: Deploy on server stage (Lucky wheel be)
 
 env:
-  APP_ENV: ${{ secrets.STAGING }}
+  APP_ENV: ${{ secrets.STAGE }}
 
 on:
   push:
