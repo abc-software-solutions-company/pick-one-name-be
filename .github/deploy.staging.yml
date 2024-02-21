@@ -1,0 +1,53 @@
+name: Deploy on server stage (Lucky wheel be)
+
+env:
+  APP_ENV: ${{ secrets.STAGING }}
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull code
+        uses: actions/checkout@v3
+
+      - name: Extract env file multi line.
+        run: |
+          rm -r -f .env
+          touch .env_temp
+          echo $APP_ENV | tee .env_temp
+          sed 's/ /\n/g' .env_temp >> .env
+          rm -r -f .env_temp
+
+      - name: Build image and package
+        run: |
+          docker build -t lucky-wheel-be-stage .
+          docker save -o lucky-wheel-be-stage.tar lucky-wheel-be-stage
+
+      - name: Copy Docker image from github action server to aws ec2 use SSH Key to login
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.STAGE_SERVER_HOST }}
+          username: ubuntu
+          port: 22
+          key: ${{ secrets.STAGE_SERVER_KEY_SSH }}
+          source: 'lucky-wheel-be-stage.tar,docker-compose-ssh.yml'
+          target: '~/lucky-wheel-be-stage'
+
+      - name: Executing remote ssh commands using SSH Key to deploy backend
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.STAGE_SERVER_HOST }}
+          username: lamminhthien02012000
+          port: 22
+          key: ${{ secrets.STAGE_SERVER_KEY_SSH }}
+          script_stop: true
+          script: |
+            cd ~/your-project-name
+            sudo docker load --input lucky-wheel-be-stage.tar
+            sudo docker-compose -f docker-compose-ssh.yml  up -d --force-recreate
+            rm -rf lucky-wheel-be-stage.tar
+            sudo docker image prune -a -f

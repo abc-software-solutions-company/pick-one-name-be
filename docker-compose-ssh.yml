@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  app:
+    image: lucky-wheel-be-stage:latest
+    restart: always
+    ports:
+      - 3005:3005
+    deploy:
+      mode: replicated
+      replicas: 1

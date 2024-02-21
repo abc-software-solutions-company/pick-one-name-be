@@ -39,7 +39,12 @@ describe('TokenService', () => {
         jwtExpiresIn: '3600s'
       });
 
-      const mockUser = { id: '1', name: 'Test User', email: 'test@example.com', role: ROLE.SUPER_ADMIN } as User;
+      const mockUser = {
+        id: '1',
+        name: 'Test User',
+        email: 'test@example.com',
+        role: ROLE.SUPER_ADMIN
+      } as unknown as User;
 
       const accessToken = await tokenService.createAccessToken(mockUser);
 
@@ -53,7 +58,12 @@ describe('TokenService', () => {
         .spyOn(configService, 'get')
         .mockReturnValue({ jwtRefreshSecretKey: 'mockRefreshSecretKey', jwtRefreshExpiresIn: '7200s' });
 
-      const mockUser = { id: '1', name: 'Test User', email: 'test@example.com', role: ROLE.SUPER_ADMIN } as User;
+      const mockUser = {
+        id: '1',
+        name: 'Test User',
+        email: 'test@example.com',
+        role: ROLE.SUPER_ADMIN
+      } as unknown as User;
 
       const refreshToken = await tokenService.createRefreshToken(mockUser);
 

@@ -1,85 +1,55 @@
-#============================================
-# 🧑‍💻 Development
-#============================================
-FROM node:21-alpine as dev
-# add the missing shared libraries from alpine base image
+FROM node:21-alpine AS base
+
+# Install dependencies only when needed
+FROM base AS deps
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
-# Create app folder
-WORKDIR /usr/app
+WORKDIR /app
 
-COPY start.sh /usr/app/
-RUN chmod +x /usr/app/start.sh
+#copy .sh file
+COPY start.sh /app/
+RUN chmod +x /app/start.sh
 
-# Set to dev environment
-ENV NODE_ENV development
-
-# Create non-root user for Docker
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nestjs
-
-# Copy source code into app folder
-COPY --chown=node:node . .
-
-# Install dependencies
+# Install dependencies based on the preferred package manager
+COPY package.json yarn.lock  ./
 RUN yarn --frozen-lockfile
 
-# Set Docker as a non-root user
-USER nestjs
+# Rebuild the source code only when needed
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
 
-#============================================
-# 🏡 Production Build
-#============================================
-FROM node:21-alpine as build
-
-WORKDIR /usr/app
-RUN apk add --no-cache libc6-compat
-
-# Set to production environment
+# Environment variables must be present at build time
 ENV NODE_ENV production
+ENV ENVIRONMENT_NAME production
 
-# Re-create non-root user for Docker
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nestjs
-
-# In order to run `yarn build` we need access to the Nest CLI.
-# Nest CLI is a dev dependency.
-COPY --chown=nestjs:nodejs --from=dev /usr/app/node_modules ./node_modules
-# Copy source code
-COPY --chown=nestjs:nodejs . .
-
-# Generate the production build. The build script runs "nest build" to compile the application.
 RUN yarn build
 
-# Install only the production dependencies and clean cache to optimize image size.
-RUN yarn --frozen-lockfile --production && yarn cache clean
+RUN rm -rf node_modules && yarn install --production --frozen-lockfile && yarn cache clean
 
-# Set Docker as a non-root user
-USER nestjs
+# Production image, copy all the files and run next
+FROM base AS runner
+WORKDIR /app
 
-#
-# 🚀 Production Server
-#
-FROM node:21-alpine as prod
-
-WORKDIR /usr/app
-RUN apk add --no-cache libc6-compat
-
-# Set to production environment
-ENV NODE_ENV production
-
-# Re-create non-root user for Docker
+# Don't run production as root
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nestjs
-
-# Copy only the necessary files
-COPY --chown=nestjs:nodejs --from=build /usr/app/dist dist
-COPY --chown=nestjs:nodejs --from=build /usr/app/node_modules node_modules
-COPY --chown=nestjs:nodejs --from=build /usr/app/package.json package.json
-COPY --chown=nestjs:nodejs --from=build /usr/app/yarn.lock yarn.lock
-COPY --chown=nestjs:nodejs --from=build /usr/app/start.sh start.sh
-
-# Set Docker as non-root user
 USER nestjs
+ENV NODE_ENV production
+ENV NODE_OPTIONS=--max-old-space-size=1700
+# For migration and seeding
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/tsconfig.json ./tsconfig.json
+COPY --from=builder /app/src ./src
+# Copy env multiline file from Github Action Secret
+COPY --from=builder /app/.env ./.env
+# Copy code output and node_modules prod from builder
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
 
-EXPOSE 3500
-CMD ["start.sh"]
+# Start shell script
+COPY --from=builder /app/start.sh ./dist/start.sh
+
+EXPOSE 3005
+CMD ["./dist/start.sh"]
