@@ -10,7 +10,7 @@ import { EventsService } from './events.service';
 @Controller('events')
 @ApiTags('Events')
 export class EventsController {
-  constructor(private readonly eventsService: EventsService) {}
+  constructor(private readonly eventsService: EventsService) { }
 
   @Post()
   @Response({ message: 'Create event successfully.' })
