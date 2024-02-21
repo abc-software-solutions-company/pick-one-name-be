@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { checkValidPassword } from '@/common/utils/password.util';
+import { checkValidPassword, hashPassword } from '@/common/utils/password.util';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -19,6 +19,8 @@ export class UsersService {
 
   create(createUserDto: CreateUserDto) {
     const user = this.userRepository.create(createUserDto);
+
+    user.password = hashPassword(createUserDto.password);
 
     return this.userRepository.save(user);
   }
@@ -59,6 +61,8 @@ export class UsersService {
     if (!user) return null;
 
     const isValidPassword = await checkValidPassword(user.password, password);
+
+    console.log('🚀🚀🚀 -> UsersService -> findByEmailAndPassword -> isValidPassword:::', isValidPassword);
 
     if (!isValidPassword) return null;
 
