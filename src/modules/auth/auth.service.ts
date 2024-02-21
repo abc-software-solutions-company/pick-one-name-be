@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 
 import { UsersService } from '@/modules/users/users.service';
 
@@ -66,15 +66,15 @@ export class AuthService {
 
     if (user) {
       // Check if user is active
-      // if (user.status !== USER_STATUS.ACTIVE) {
-      //   throw new UnauthorizedException('User is inactive');
-      // }
+      if (!user.isActive) {
+        throw new UnauthorizedException('User is inactive');
+      }
       // Check if user is existing with another provider
-      // if (user.provider !== AUTH_PROVIDER.GOOGLE) {
-      //   throw new ConflictException(`User is existing with ${user.provider} provider.`);
-      // }
+      if (user.provider !== AUTH_PROVIDER.GOOGLE) {
+        throw new ConflictException(`User is existing with ${user.provider} provider.`);
+      }
       // Find user using Google OAuth account
-      // user = await this.usersService.findByOAuthAccount(AUTH_PROVIDER.GOOGLE, googleProfile.sub);
+      user = await this.usersService.findByOAuthAccount(AUTH_PROVIDER.GOOGLE, googleProfile.sub);
     } else {
       // Create new user from Google OAuth account
       user = await this.createNewUserFromOAuthProfile(AUTH_PROVIDER.GOOGLE, googleProfile);
@@ -93,6 +93,8 @@ export class AuthService {
       user: {
         id: user.id,
         email: user.email,
+        name: user.name,
+        avatar: user.avatar,
         accessToken,
         refreshToken
       }
@@ -110,15 +112,15 @@ export class AuthService {
 
     if (user) {
       // Check if user is active
-      // if (user.status !== USER_STATUS.ACTIVE) {
-      //   throw new UnauthorizedException('User is inactive');
-      // }
+      if (!user.isActive) {
+        throw new UnauthorizedException('User is inactive');
+      }
       // Check if user is existing with another provider
-      // if (user.provider !== AUTH_PROVIDER.FACEBOOK) {
-      //   throw new ConflictException(`User is existing with ${user.provider} provider.`);
-      // }
+      if (user.provider !== AUTH_PROVIDER.FACEBOOK) {
+        throw new ConflictException(`User is existing with ${user.provider} provider.`);
+      }
       // Find user using Facebook OAuth account
-      // user = await this.usersService.findByOAuthAccount(AUTH_PROVIDER.FACEBOOK, userInfo.id);
+      user = await this.usersService.findByOAuthAccount(AUTH_PROVIDER.FACEBOOK, userInfo.id);
     } else {
       // Create new user from Facebook OAuth account
       user = await this.createNewUserFromOAuthProfile(AUTH_PROVIDER.FACEBOOK, userInfo);
@@ -136,6 +138,8 @@ export class AuthService {
       user: {
         id: user.id,
         email: user.email,
+        name: user.name,
+        avatar: user.avatar,
         accessToken,
         refreshToken
       }

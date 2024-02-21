@@ -10,12 +10,21 @@ import { RefreshToken } from '@/modules/refresh-tokens/entities/refresh-token.en
 
 @Entity({ name: 'users' })
 export class User extends AbstractEntity {
+  @Column({ nullable: true, type: 'varchar', length: 255 })
+  name: string;
+
   @Column({ nullable: true, unique: true, type: 'varchar', length: 255 })
   email: string;
 
   @Column({ nullable: true })
+  avatar?: string;
+
+  @Column({ nullable: true })
   @Exclude()
   password?: string;
+
+  @Column({ nullable: true })
+  providerAccountId?: string;
 
   @Column({ type: 'enum', enum: AUTH_PROVIDER, default: AUTH_PROVIDER.CREDENTIALS })
   provider: AUTH_PROVIDER;
