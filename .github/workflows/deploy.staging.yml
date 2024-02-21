@@ -46,7 +46,7 @@ jobs:
           key: ${{ secrets.STAGE_SERVER_KEY_SSH }}
           script_stop: true
           script: |
-            cd ~/your-project-name
+            cd ~/lucky-wheel-be-stage
             sudo docker load --input lucky-wheel-be-stage.tar
             sudo docker-compose -f docker-compose-ssh.yml  up -d --force-recreate
             rm -rf lucky-wheel-be-stage.tar
