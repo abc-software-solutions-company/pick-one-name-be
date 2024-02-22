@@ -62,8 +62,6 @@ export class UsersService {
 
     const isValidPassword = await checkValidPassword(user.password, password);
 
-    console.log('🚀🚀🚀 -> UsersService -> findByEmailAndPassword -> isValidPassword:::', isValidPassword);
-
     if (!isValidPassword) return null;
 
     return user;
