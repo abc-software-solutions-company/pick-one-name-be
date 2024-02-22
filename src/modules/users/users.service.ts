@@ -8,7 +8,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
-import { AUTH_PROVIDER } from '../auth/constants/auth.constant';
+import { AUTH_PROVIDER, AUTH_TYPE } from '../auth/constants/auth.constant';
 
 @Injectable()
 export class UsersService {
@@ -20,7 +20,9 @@ export class UsersService {
   create(createUserDto: CreateUserDto) {
     const user = this.userRepository.create(createUserDto);
 
-    user.password = hashPassword(createUserDto.password);
+    if (createUserDto.authType === AUTH_TYPE.CREDENTIALS) {
+      user.password = hashPassword(createUserDto.password);
+    }
 
     return this.userRepository.save(user);
   }
