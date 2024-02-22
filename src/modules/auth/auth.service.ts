@@ -9,7 +9,6 @@ import { IOAuthFacebookProfile, IOAuthGoogleProfile, IOAuthProfile } from './int
 
 import { RefreshTokensService } from '../refresh-tokens/refresh-tokens.service';
 import { TokenService } from '../shared/token.service';
-import { GENDER, ROLE, USER_STATUS } from '../users/constants/users.constant';
 
 @Injectable()
 export class AuthService {
@@ -26,9 +25,9 @@ export class AuthService {
     const user = await this.usersService.findByEmailAndPassword(email, password);
 
     if (user) {
-      // if (user.status !== USER_STATUS.ACTIVE) {
-      //   throw new UnauthorizedException('User is inactive');
-      // }
+      if (!user.isActive) {
+        throw new UnauthorizedException('User is inactive');
+      }
     } else {
       throw new UnauthorizedException('User not found');
     }
@@ -169,13 +168,9 @@ export class AuthService {
       email: transformedData.email,
       avatar: transformedData.avatar,
       emailVerified: transformedData.emailVerified,
-      locale: transformedData.locale,
       providerAccountId: transformedData.providerAccountId,
       provider,
-      authType: AUTH_TYPE.OAUTH,
-      gender: GENDER.OTHER,
-      status: USER_STATUS.ACTIVE,
-      role: ROLE.USER
+      authType: AUTH_TYPE.OAUTH
     });
 
     return newUser;

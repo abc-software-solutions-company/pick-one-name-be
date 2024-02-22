@@ -6,7 +6,6 @@ import { hashPassword } from '@/common/utils';
 
 import { AuthModule } from '@/modules/auth/auth.module';
 import { RefreshToken } from '@/modules/refresh-tokens/entities/refresh-token.entity';
-import { ROLE, USER_STATUS } from '@/modules/users/constants/users.constant';
 import { UsersService } from '@/modules/users/users.service';
 
 import { login, logout } from './utils/auth.util';
@@ -39,9 +38,7 @@ describe('AuthController (e2e)', () => {
     await usersService.create({
       email: process.env.USER_EMAIL,
       password: hashPassword(process.env.USER_PASSWORD),
-      name: 'test',
-      role: ROLE.SUPER_ADMIN,
-      status: USER_STATUS.ACTIVE
+      name: 'test'
     });
   });
 

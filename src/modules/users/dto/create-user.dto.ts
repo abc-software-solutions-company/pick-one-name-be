@@ -3,8 +3,6 @@ import { IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
 
 import { AUTH_PROVIDER, AUTH_TYPE } from '@/modules/auth/constants/auth.constant';
 
-import { GENDER, ROLE, USER_STATUS } from '../constants/users.constant';
-
 export class CreateUserDto {
   @ApiProperty({ example: 'Tin Tran' })
   @IsNotEmpty()
@@ -18,10 +16,6 @@ export class CreateUserDto {
   @IsOptional()
   avatar?: string;
 
-  @ApiPropertyOptional({ example: '' })
-  @IsOptional()
-  phoneNumber?: string;
-
   @ApiPropertyOptional({ example: '<PASSWORD>' })
   @IsOptional()
   password?: string;
@@ -29,10 +23,6 @@ export class CreateUserDto {
   @ApiPropertyOptional({ example: false })
   @IsOptional()
   emailVerified?: boolean;
-
-  @ApiPropertyOptional({ example: '' })
-  @IsOptional()
-  locale?: string;
 
   @ApiPropertyOptional({ example: '' })
   @IsOptional()
@@ -46,15 +36,7 @@ export class CreateUserDto {
   @IsOptional()
   authType?: AUTH_TYPE;
 
-  @ApiPropertyOptional({ enum: GENDER, example: GENDER.OTHER })
+  @ApiPropertyOptional({ example: true })
   @IsOptional()
-  gender?: GENDER;
-
-  @ApiPropertyOptional({ enum: USER_STATUS, example: USER_STATUS.ACTIVE })
-  @IsOptional()
-  status: USER_STATUS;
-
-  @ApiProperty({ enum: ROLE, example: ROLE.USER })
-  @IsOptional()
-  role: ROLE;
+  isActive?: boolean;
 }
