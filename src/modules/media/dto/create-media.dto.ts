@@ -7,7 +7,7 @@ export class CreateMediaDto {
   @ApiProperty({
     type: String,
     description: 'File name that will upload',
-    example: 'flight-ticket.xlsx'
+    example: 'hehehe.js'
   })
   @IsString({ message: 'File name must be a string' })
   @IsNotEmpty()

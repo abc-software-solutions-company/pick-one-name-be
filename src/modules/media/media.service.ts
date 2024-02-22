@@ -79,9 +79,6 @@ export class MediaService {
       const s3ObjectMeta = await this.awsS3Service.getObjectMeta(tempPath);
 
       await this.awsS3Service.copyObject(tempPath, newPath);
-      // TODO: Currently, don't remove image because of quiz setting overview in FE don't fetch new image link after press complete button.
-      // If we fetch data again, it may be cause heavy load on backend and increase time to waiting quiz setting page loaded.
-      // await this.awsS3Service.removeS3Object(tempPath);
       media.size = s3ObjectMeta.ContentLength;
       media.isTemp = false;
       this.logger.log(`handleMoveFile newPath: ${newPath}`);
@@ -93,58 +90,4 @@ export class MediaService {
       throw error;
     }
   }
-
-  // async handleQuizFile(folderName: string | undefined, fileId: string | undefined): Promise<MediaEntity> {
-  //   try {
-  //     const media = await this.findOneById(fileId as string);
-
-  //     if (!media.isTemp) {
-  //       return media;
-  //     }
-
-  //     const fileName = `${media.hash}${media.ext}`;
-  //     const newPath = getQuizBucketPath(folderName, fileName);
-  //     const updatedMedia = await this.handleMoveFile(fileName, newPath, media);
-
-  //     return updatedMedia;
-  //   } catch (error) {
-  //     this.logger.log(`handleQuizFile error: ${error.message}`);
-  //     throw error;
-  //   }
-  // }
-
-  // async handleQuestionFile(fileId: string): Promise<MediaEntity> {
-  //   try {
-  //     const media = await this.findOneById(fileId);
-
-  //     if (!media.isTemp) {
-  //       return media;
-  //     }
-
-  //     const fileName = `${media.hash}${media.ext}`;
-  //     const newPath = getQuestionBucketPath(fileName);
-  //     const updatedMedia = await this.handleMoveFile(fileName, newPath, media);
-
-  //     return updatedMedia;
-  //   } catch (error) {
-  //     this.logger.log(`handleQuestionFile error: ${error.message}`);
-  //     throw error;
-  //   }
-  // }
-
-  // async handleUserFile(fileId: string): Promise<MediaEntity> {
-  // try {
-  //   const media = await this.findOneById(fileId);
-  //   if (!media.isTemp) {
-  //     return MediaEntity;
-  //   }
-  //   const fileName = `${media.hash}${media.ext}`;
-  // const newPath = getUserBucketPath(fileName);
-  //   const updatedMedia = await this.handleMoveFile(fileName, newPath, media);
-  //   return updatedMediaEntity;
-  // } catch (error) {
-  //   this.logger.log(`handleUserFile error: ${error.message}`);
-  //   throw error;
-  // }
-  // }
 }
