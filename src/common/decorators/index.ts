@@ -4,3 +4,4 @@ export * from './param.decorator';
 export * from './public.decorator';
 export * from './query.decorator';
 export * from './response.decorator';
+export * from './transforms.decorator';
