@@ -1,8 +1,22 @@
+import type { AwsCredentialIdentity } from '@aws-sdk/types';
+
+import { ENV } from '../constants';
+
 export interface IConfigs {
   app: {
     host: string;
     port: number;
     isDocumentationEnabled: boolean;
+    env: ENV;
+  };
+  aws: {
+    region: string;
+    endpoint: string;
+    credentials: AwsCredentialIdentity;
+    s3: {
+      bucketName: string;
+      baseUrl: string;
+    };
   };
   http: {
     timeout: number;

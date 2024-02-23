@@ -10,10 +10,20 @@ import { AppService } from './app.service';
 
 import { BaseModule } from '../base/base.module';
 import { EventsModule } from '../events/events.module';
+import { MediaModule } from '../media/media.module';
 import { RandomsModule } from '../randoms/randoms.module';
 
 @Module({
-  imports: [BaseModule, UsersModule, AuthModule, RefreshTokensModule, SocketModule, RandomsModule, EventsModule],
+  imports: [
+    BaseModule,
+    UsersModule,
+    AuthModule,
+    RefreshTokensModule,
+    SocketModule,
+    RandomsModule,
+    EventsModule,
+    MediaModule
+  ],
   controllers: [AppController],
   providers: [AppService]
 })
