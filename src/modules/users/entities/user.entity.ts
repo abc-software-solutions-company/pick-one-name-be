@@ -5,7 +5,6 @@ import { AbstractEntity } from '@/common/entities';
 
 import { AUTH_PROVIDER, AUTH_TYPE } from '@/modules/auth/constants/auth.constant';
 import { Event } from '@/modules/events/entities/event.entity';
-import { Image } from '@/modules/images/entities/image.entity';
 import { RefreshToken } from '@/modules/refresh-tokens/entities/refresh-token.entity';
 
 @Entity({ name: 'users' })
@@ -43,7 +42,4 @@ export class User extends AbstractEntity {
 
   @OneToMany(() => RefreshToken, refreshToken => refreshToken.user)
   refreshTokens: RefreshToken[];
-
-  @OneToMany(() => Image, image => image.author)
-  images: Image[];
 }
