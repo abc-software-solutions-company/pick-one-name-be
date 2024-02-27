@@ -1,10 +1,8 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 
 import { AbstractEntity } from '@/common/entities';
 
 import { JSONObject } from '@/common/interfaces';
-
-import { FolderEntity } from './folder.entity';
 
 @Entity({
   name: 'media'
@@ -78,9 +76,4 @@ export class MediaEntity extends AbstractEntity {
     default: true
   })
   isTemp?: boolean;
-
-  @ManyToOne(() => FolderEntity, folder => folder.files, {
-    onDelete: 'CASCADE'
-  })
-  folder?: FolderEntity;
 }
