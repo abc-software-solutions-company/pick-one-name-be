@@ -9,7 +9,7 @@ import { UsersService } from './users.service';
 
 import { AccessTokenGuard } from '../auth/guards/access-token.guard';
 
-@Controller({ path: 'admin/users' })
+@Controller({ path: 'users' })
 @ApiTags('Users')
 @UseGuards(AccessTokenGuard)
 @ApiBearerAuth('accessToken')
