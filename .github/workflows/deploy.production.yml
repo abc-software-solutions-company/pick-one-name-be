@@ -34,7 +34,7 @@ jobs:
           username: ubuntu
           port: 22
           key: ${{ secrets.PROD_SERVER_KEY_SSH }}
-          source: 'lucky-wheel-be-production.tar,docker-compose-ssh.yml'
+          source: 'lucky-wheel-be-production.tar,docker-compose-ssh-production.yml'
           target: '~/lucky-wheel-be-production'
 
       - name: Executing remote ssh commands using SSH Key to deploy backend
