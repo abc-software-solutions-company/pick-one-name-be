@@ -24,8 +24,8 @@ jobs:
 
       - name: Build image and package
         run: |
-          docker build -t lucky-wheel-be-prod .
-          docker save -o lucky-wheel-be-prod.tar lucky-wheel-be-prod
+          docker build -t lucky-wheel-be-production .
+          docker save -o lucky-wheel-be-production.tar lucky-wheel-be-production
 
       - name: Copy Docker image from github action server to aws ec2 use SSH Key to login
         uses: appleboy/scp-action@v0.1.4
@@ -34,8 +34,8 @@ jobs:
           username: ubuntu
           port: 22
           key: ${{ secrets.PROD_SERVER_KEY_SSH }}
-          source: 'lucky-wheel-be-prod.tar,docker-compose-ssh.yml'
-          target: '~/lucky-wheel-be-prod'
+          source: 'lucky-wheel-be-production.tar,docker-compose-ssh.yml'
+          target: '~/lucky-wheel-be-production'
 
       - name: Executing remote ssh commands using SSH Key to deploy backend
         uses: appleboy/ssh-action@v1.0.0
@@ -46,8 +46,8 @@ jobs:
           key: ${{ secrets.PROD_SERVER_KEY_SSH }}
           script_stop: true
           script: |
-            cd ~/lucky-wheel-be-prod
-            sudo docker load --input lucky-wheel-be-prod.tar
+            cd ~/lucky-wheel-be-production
+            sudo docker load --input lucky-wheel-be-production.tar
             sudo docker-compose -f docker-compose-ssh-production.yml  up -d --force-recreate
-            rm -rf lucky-wheel-be-prod.tar
+            rm -rf lucky-wheel-be-production.tar
             sudo docker image prune -a -f
