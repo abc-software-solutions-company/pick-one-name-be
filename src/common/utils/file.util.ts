@@ -3,7 +3,7 @@ import mime from 'mime';
 import path from 'path';
 import slugify from 'slugify';
 
-import { BG_FOLDER, TEMP_UPLOAD_FOLDER } from '../constants';
+import { BG_FOLDER, UPLOAD_FOLDER } from '../constants';
 
 export const nameToSlug = (name: string) => slugify(name);
 
@@ -28,7 +28,7 @@ export const generateFileName = (fileName: string): string => {
 };
 
 export const getTempUploadBucketPath = (fileBucketPath: string): string => {
-  return `${TEMP_UPLOAD_FOLDER}/${fileBucketPath}`;
+  return `${UPLOAD_FOLDER}/${fileBucketPath}`;
 };
 
 export const getHotelBucketPath = (userId?: string, fileBucketPath?: string): string => {
