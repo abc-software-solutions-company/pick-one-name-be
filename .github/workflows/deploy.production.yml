@@ -1,11 +1,11 @@
-name: Deploy on server stage (Lucky wheel be)
+name: Deploy on server prod (Lucky wheel be)
 
 env:
-  APP_ENV: ${{ secrets.STAGE }}
+  APP_ENV: ${{ secrets.PRODUCTION }}
 
 on:
   push:
-    branches: ['main']
+    branches: ['release']
 
 jobs:
   build-and-deploy:
@@ -24,30 +24,30 @@ jobs:
 
       - name: Build image and package
         run: |
-          docker build -t lucky-wheel-be-stage .
-          docker save -o lucky-wheel-be-stage.tar lucky-wheel-be-stage
+          docker build -t lucky-wheel-be-production .
+          docker save -o lucky-wheel-be-production.tar lucky-wheel-be-production
 
       - name: Copy Docker image from github action server to aws ec2 use SSH Key to login
         uses: appleboy/scp-action@v0.1.4
         with:
-          host: ${{ secrets.STAGE_SERVER_HOST }}
+          host: ${{ secrets.PROD_SERVER_HOST }}
           username: ubuntu
           port: 22
-          key: ${{ secrets.STAGE_SERVER_KEY_SSH }}
-          source: 'lucky-wheel-be-stage.tar,docker-compose-ssh.yml'
-          target: '~/lucky-wheel-be-stage'
+          key: ${{ secrets.PROD_SERVER_KEY_SSH }}
+          source: 'lucky-wheel-be-production.tar,docker-compose-ssh.yml'
+          target: '~/lucky-wheel-be-production'
 
       - name: Executing remote ssh commands using SSH Key to deploy backend
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ secrets.STAGE_SERVER_HOST }}
+          host: ${{ secrets.PROD_SERVER_HOST }}
           username: ubuntu
           port: 22
-          key: ${{ secrets.STAGE_SERVER_KEY_SSH }}
+          key: ${{ secrets.PROD_SERVER_KEY_SSH }}
           script_stop: true
           script: |
-            cd ~/lucky-wheel-be-stage
-            sudo docker load --input lucky-wheel-be-stage.tar
-            sudo docker-compose -f docker-compose-ssh-stage.yml  up -d --force-recreate
-            rm -rf lucky-wheel-be-stage.tar
+            cd ~/lucky-wheel-be-production
+            sudo docker load --input lucky-wheel-be-production.tar
+            sudo docker-compose -f docker-compose-ssh-production.yml  up -d --force-recreate
+            rm -rf lucky-wheel-be-production.tar
             sudo docker image prune -a -f
