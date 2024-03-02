@@ -1,4 +1,4 @@
-name: Check health server production every 15 minutes
+name: Check health server every 15 minutes
 
 on:
   schedule:
@@ -9,5 +9,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Ping api-pre-production.quizne.com/api
-        run: ping api-pre-production.quizne.com/api
+      - name: Ping https://api.quayso-mayman.vn/api/v1
+        run: ping https://api.quayso-mayman.vn/api/v1
+
+      - name: Ping https://stage-be.quayso-mayman.vn/api/v1
+        run: ping https://stage-be.quayso-mayman.vn/api/v1
