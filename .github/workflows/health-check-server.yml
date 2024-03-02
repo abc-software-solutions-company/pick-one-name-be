@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Check backend prod
-        run: curl https://api.quayso-mayman.vn/api/v1
+        run: curl https://api.quayso-mayman.vn
 
       - name: Check backend stage
-        run: curl https://stage-be.quayso-mayman.vn/api/v1
+        run: curl https://stage-be.quayso-mayman.vn
