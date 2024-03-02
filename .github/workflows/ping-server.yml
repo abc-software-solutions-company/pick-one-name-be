@@ -1,0 +1,13 @@
+name: Check health server production every 15 minutes
+
+on:
+  schedule:
+    - cron: '*/15 * * * *' # Runs every 15 minutes
+
+jobs:
+  ping_server:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ping api-pre-production.quizne.com/api
+        run: ping api-pre-production.quizne.com/api
