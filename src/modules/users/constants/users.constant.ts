@@ -18,7 +18,7 @@ export enum USER_STATUS {
   NOT_VERIFIED = 'NOT_VERIFIED'
 }
 
-export enum PLANE {
+export enum PLAN {
   FREE = 'FREE',
   ONE_DAY = 'ONE_DAY',
   THREE_DAY = 'THREE_DAY'

@@ -3,6 +3,8 @@ import { IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
 
 import { AUTH_PROVIDER, AUTH_TYPE } from '@/modules/auth/constants/auth.constant';
 
+import { PLAN } from '../constants/users.constant';
+
 export class CreateUserDto {
   @ApiProperty({ example: 'Tin Tran' })
   @IsNotEmpty()
@@ -31,6 +33,10 @@ export class CreateUserDto {
   @ApiPropertyOptional({ example: AUTH_PROVIDER.CREDENTIALS })
   @IsOptional()
   provider?: AUTH_PROVIDER;
+
+  @ApiPropertyOptional({ example: PLAN.FREE })
+  @IsOptional()
+  plan?: PLAN;
 
   @ApiPropertyOptional({ example: AUTH_TYPE.CREDENTIALS })
   @IsOptional()
