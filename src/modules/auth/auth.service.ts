@@ -17,7 +17,7 @@ export class AuthService {
     private httpService: HttpService,
     private refreshTokensService: RefreshTokensService,
     private tokenService: TokenService
-  ) { }
+  ) {}
 
   async signIn(signInDto: SignInDto, ipAddress: string, userAgent: string, fingerPrint: string) {
     const { email, password } = signInDto;
