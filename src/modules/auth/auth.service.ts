@@ -50,6 +50,7 @@ export class AuthService {
         email: user.email,
         name: user.name,
         avatar: user.avatar,
+        plan: user.plan,
         accessToken,
         refreshToken
       }
@@ -96,6 +97,7 @@ export class AuthService {
         email: user.email,
         name: user.name,
         avatar: user.avatar,
+        plan: user.plan,
         accessToken,
         refreshToken
       }
@@ -140,6 +142,7 @@ export class AuthService {
         id: user.id,
         email: user.email,
         name: user.name,
+        plan: user.plan,
         avatar: user.avatar,
         accessToken,
         refreshToken

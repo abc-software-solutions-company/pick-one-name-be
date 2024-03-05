@@ -7,7 +7,7 @@ import { AUTH_PROVIDER, AUTH_TYPE } from '@/modules/auth/constants/auth.constant
 import { Event } from '@/modules/events/entities/event.entity';
 import { RefreshToken } from '@/modules/refresh-tokens/entities/refresh-token.entity';
 
-import { PLANE } from '../constants/users.constant';
+import { PLAN } from '../constants/users.constant';
 
 @Entity({ name: 'users' })
 export class User extends AbstractEntity {
@@ -33,8 +33,8 @@ export class User extends AbstractEntity {
   @Column({ type: 'enum', enum: AUTH_TYPE, default: AUTH_TYPE.CREDENTIALS })
   authType: AUTH_TYPE;
 
-  @Column({ type: 'enum', enum: PLANE, default: PLANE.FREE })
-  plane: PLANE;
+  @Column({ type: 'enum', enum: PLAN, default: PLAN.FREE })
+  plan: PLAN;
 
   @Column({ type: 'bool', default: true, name: 'is_active' })
   isActive: boolean;
