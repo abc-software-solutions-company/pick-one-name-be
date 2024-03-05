@@ -20,6 +20,6 @@ export enum USER_STATUS {
 
 export enum PLANE {
   FREE = 'FREE',
-  ONE = 'ONE',
-  COMBO = 'COMBO'
+  ONE = 'ONE_DAY',
+  THREE = 'THREE_DAY'
 }
