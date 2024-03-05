@@ -17,7 +17,7 @@ export class AuthService {
     private httpService: HttpService,
     private refreshTokensService: RefreshTokensService,
     private tokenService: TokenService
-  ) {}
+  ) { }
 
   async signIn(signInDto: SignInDto, ipAddress: string, userAgent: string, fingerPrint: string) {
     const { email, password } = signInDto;
@@ -50,6 +50,7 @@ export class AuthService {
         email: user.email,
         name: user.name,
         avatar: user.avatar,
+        plane: user.plane,
         accessToken,
         refreshToken
       }
@@ -96,6 +97,7 @@ export class AuthService {
         email: user.email,
         name: user.name,
         avatar: user.avatar,
+        plane: user.plane,
         accessToken,
         refreshToken
       }
@@ -140,6 +142,7 @@ export class AuthService {
         id: user.id,
         email: user.email,
         name: user.name,
+        plane: user.plane,
         avatar: user.avatar,
         accessToken,
         refreshToken
