@@ -17,3 +17,9 @@ export enum USER_STATUS {
   BLOCKED = 'BLOCKED',
   NOT_VERIFIED = 'NOT_VERIFIED'
 }
+
+export enum PLANE {
+  FREE = 'FREE',
+  ONE = 'ONE',
+  COMBO = 'COMBO'
+}
