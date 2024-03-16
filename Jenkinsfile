@@ -1,12 +1,9 @@
 pipeline {
     agent any
-
     stages {
-        stage('Build') {
+        stage('Build') { 
             steps {
-                nodejs(nodeJSInstallationName: 'Node 21.x', configId: '<config-file-provider-id>') {
-                    sh 'npm config ls'
-                }
+                sh 'nvm use 21 && yarn install && yarn build' 
             }
         }
     }
