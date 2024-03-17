@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    tools {
-        nodejs '21.X'
-    }
     stages {
         stage('Install NVM') {
             steps {
