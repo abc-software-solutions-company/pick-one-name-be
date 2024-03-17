@@ -1,12 +1,12 @@
 pipeline {
     agent any
-
+    tools {
+        nodejs '21.X'
+    }
     stages {
         stage('Build') {
             steps {
-                nodejs(nodeJSInstallationName: 'Node 21.x', configId: '<config-file-provider-id>') {
-                    sh 'npm config ls'
-                }
+                sh 'npm install && npm run lint'
             }
         }
     }
