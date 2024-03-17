@@ -1,11 +1,11 @@
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="80" alt="Nest Logo" /></a>
 </p>
-<h1 align="center">NESTJS TEMPLATE</h1>
+<h1 align="center">Pick One Name BE</h1>
 
 ## Description
 
-Admin Portal Template
+Pick One Name BE
 
 ## Installation
 
