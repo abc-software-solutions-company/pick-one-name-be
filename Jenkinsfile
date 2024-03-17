@@ -4,14 +4,9 @@ pipeline {
         nodejs '21.X'
     }
     stages {
-        stage('Install NVM') {
+        stage('Build') {
             steps {
-                sh 'sudo apt install curl && curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash '
-            }
-        }
-        stage('Nvm 21') {
-            steps {
-                sh 'nvm install 21 && nvm use 21 && npm install'
+                sh 'npm install && npm run lint'
             }
         }
     }
