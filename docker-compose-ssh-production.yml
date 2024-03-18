@@ -8,4 +8,3 @@ services:
       - 3006:3005
     deploy:
       mode: replicated
-      replicas: 1
