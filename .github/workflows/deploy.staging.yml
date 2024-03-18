@@ -11,8 +11,30 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Pull code
+      - name: checkout repository
         uses: actions/checkout@v3
+
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+
+      - name: installing yarn
+        run: |
+          npm install --global yarn
+          yarn --version
+
+      - name: save & restore node_modules cache
+        uses: actions/cache@v3
+        id: node_modules
+        with:
+          path: |
+            **/node_modules
+          key: node_modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: install-dependencies
+        run: |
+          yarn install
 
       - name: Extract env file multi line.
         run: |
