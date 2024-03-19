@@ -46,7 +46,7 @@ jobs:
 
       - name: Build image and package
         run: |
-          docker build -t lucky-wheel-be-stage .
+          docker build -f Dockerfile-no-yarn-install -t lucky-wheel-be-stage .
           docker save -o lucky-wheel-be-stage.tar lucky-wheel-be-stage
 
       - name: Copy Docker image from github action server to aws ec2 use SSH Key to login
