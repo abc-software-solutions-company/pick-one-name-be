@@ -1346,18 +1346,6 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@kwsites/file-exists@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@kwsites/file-exists/-/file-exists-1.1.1.tgz#ad1efcac13e1987d8dbaf235ef3be5b0d96faa99"
-  integrity sha512-m9/5YGR18lIwxSFDwfE3oA7bWuq9kdau6ugN4H2rJeyhFQZcG9AgSHkQtSD15a8WvTgfz9aikZMrKPHvbpqFiw==
-  dependencies:
-    debug "^4.1.1"
-
-"@kwsites/promise-deferred@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@kwsites/promise-deferred/-/promise-deferred-1.1.1.tgz#8ace5259254426ccef57f3175bc64ed7095ed919"
-  integrity sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw==
-
 "@lukeed/csprng@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@lukeed/csprng/-/csprng-1.1.0.tgz#1e3e4bd05c1cc7a0b2ddbd8a03f39f6e4b5e6cfe"
@@ -3127,16 +3115,15 @@ bcrypt@^5.1.0:
     "@mapbox/node-pre-gyp" "^1.0.10"
     node-addon-api "^5.0.0"
 
-better-commits@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/better-commits/-/better-commits-1.5.1.tgz#cd905ef5eb0eeeb01957a9764b47b1ffae1bcce0"
-  integrity sha512-ZZOCWJraQm4Y6G8kNOsopTWgfkggZU2oyJWwlqlUFgifQSQJgo9msqrLf0zycx6nV1vtfleROzGOCZzpfpSyqA==
+better-commits@^1.14.0:
+  version "1.14.0"
+  resolved "https://registry.yarnpkg.com/better-commits/-/better-commits-1.14.0.tgz#ddce82ff99a50feae32de8a937c20b499d525a41"
+  integrity sha512-1ex05BP7GXNVKPhv7nrJn1Qy+rccB+5knv47AepNd9DwdJlj5Pt/chv4w0hLw5sW3pqih8MYQww5mNsmqC3J1w==
   dependencies:
     "@clack/core" "^0.3.1"
     "@clack/prompts" "^0.6.2"
     configstore "^5.0.1"
     picocolors "^1.0.0"
-    simple-git "^3.16.1"
     zod "^3.21.3"
     zod-validation-error "^1.0.1"
 
@@ -7507,15 +7494,6 @@ signal-exit@^3.0.0, signal-exit@^3.0.2, signal-exit@^3.0.3, signal-exit@^3.0.7:
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.7.tgz#a9a1767f8af84155114eaabd73f99273c8f59ad9"
   integrity sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==
-
-simple-git@^3.16.1:
-  version "3.19.1"
-  resolved "https://registry.yarnpkg.com/simple-git/-/simple-git-3.19.1.tgz#ff9c021961a3d876a1b115b1893bed9a28855d30"
-  integrity sha512-Ck+rcjVaE1HotraRAS8u/+xgTvToTuoMkT9/l9lvuP5jftwnYUp6DwuJzsKErHgfyRk8IB8pqGHWEbM3tLgV1w==
-  dependencies:
-    "@kwsites/file-exists" "^1.1.1"
-    "@kwsites/promise-deferred" "^1.1.1"
-    debug "^4.3.4"
 
 sisteransi@^1.0.5:
   version "1.0.5"
