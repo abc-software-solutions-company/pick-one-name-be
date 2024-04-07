@@ -5,6 +5,6 @@ services:
     image: lucky-wheel-be-production:latest
     restart: always
     ports:
-      - 3006:3005
+      - 4006:3005
     deploy:
       mode: replicated
