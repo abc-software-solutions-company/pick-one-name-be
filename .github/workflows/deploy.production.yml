@@ -31,9 +31,9 @@ jobs:
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.PROD_SERVER_HOST }}
-          username: ubuntu
+          username: root
           port: 22
-          key: ${{ secrets.PROD_SERVER_KEY_SSH }}
+          password: ${{ secrets.PROD_SERVER_PASSWORD }}
           source: 'lucky-wheel-be-production.tar,docker-compose-ssh-production.yml'
           target: '~/lucky-wheel-be-production'
 
@@ -41,9 +41,9 @@ jobs:
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.PROD_SERVER_HOST }}
-          username: ubuntu
+          username: root
           port: 22
-          key: ${{ secrets.PROD_SERVER_KEY_SSH }}
+          password: ${{ secrets.PROD_SERVER_PASSWORD }}
           script_stop: true
           script: |
             cd ~/lucky-wheel-be-production
